@@ -1,0 +1,9 @@
+.gameBoard {
+  display: flex;
+  gap: 2rem;
+
+  .cardPiece {
+    padding: 3rem;
+    border: 1px solid black;
+  }
+}
