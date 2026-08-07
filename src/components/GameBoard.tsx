@@ -1,23 +1,18 @@
-import { useState } from "react";
-
 import { CardPiece } from "./CardPiece";
 
-const initialBoardState = {
-  currentScore: 0,
-  highestScore: 0,
-  resetGame: false,
-};
+interface GameBoardProp {
+  updateCurrScore: () => void;
+  resetGame: () => void;
+}
 
-function GameBoard() {
-  const [boardState, setBoardState] = useState(initialBoardState);
-
+function GameBoard({ ...prop }: GameBoardProp) {
   return (
     <section className="gameBoard">
-      <CardPiece />
-      <CardPiece />
-      <CardPiece />
+      <CardPiece {...prop} />
+      <CardPiece {...prop} />
+      <CardPiece {...prop} />
     </section>
   );
 }
 
-export { GameBoard };
+export { GameBoard, type GameBoardProp };

@@ -1,12 +1,18 @@
 import { useState, type MouseEvent } from "react";
 
-function CardPiece() {
+import type { GameBoardProp } from "./GameBoard";
+
+function CardPiece({ updateCurrScore, resetGame }: GameBoardProp) {
   const [clickedState, setClickedState] = useState(false);
 
   function handleClick(_e: MouseEvent) {
     if (clickedState === false) {
       setClickedState(true);
+      updateCurrScore();
+      return;
     }
+
+    resetGame();
   }
 
   return (
