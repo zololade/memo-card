@@ -20,14 +20,14 @@ function App() {
   }
 
   function resetGameHnd() {
-    if (boardState.currentScore > boardState.highestScore) {
-      setBoardState((prev) => {
-        return { ...prev, highestScore: prev.currentScore };
-      });
-    }
-
     setBoardState((prev) => {
-      return { ...prev, currentScore: 0, resetGameId: crypto.randomUUID() };
+      return {
+        ...prev,
+        currentScore: 0,
+        highestScore:
+          boardState.currentScore > boardState.highestScore ? prev.currentScore : prev.highestScore,
+        resetGameId: crypto.randomUUID(),
+      };
     });
   }
 

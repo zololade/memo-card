@@ -5,12 +5,12 @@ interface GameBoardProp {
   resetGame: () => void;
 }
 
-function GameBoard({ ...prop }: GameBoardProp) {
+function GameBoard(props: GameBoardProp) {
   return (
     <section className="gameBoard">
-      <CardPiece {...prop} />
-      <CardPiece {...prop} />
-      <CardPiece {...prop} />
+      {Array.from({ length: 10 }).map((_val, i) => (
+        <CardPiece {...props} key={i} val={i} />
+      ))}
     </section>
   );
 }

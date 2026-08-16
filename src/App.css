@@ -1,5 +1,6 @@
 .gameBoard {
   display: flex;
+  flex-wrap: wrap;
   gap: 2rem;
 
   .cardPiece {
