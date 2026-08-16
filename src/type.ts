@@ -1,7 +1,7 @@
 interface BoardState {
   currentScore: number;
   highestScore: number;
-  resetGame: boolean;
+  resetGameId: string;
 }
 
 export type { BoardState };

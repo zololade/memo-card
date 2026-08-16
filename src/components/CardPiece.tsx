@@ -6,13 +6,7 @@ function CardPiece({ updateCurrScore, resetGame }: GameBoardProp) {
   const [clickedState, setClickedState] = useState(false);
 
   function handleClick(_e: MouseEvent) {
-    if (clickedState === false) {
-      setClickedState(true);
-      updateCurrScore();
-      return;
-    }
-
-    resetGame();
+    return clickedState === false ? (setClickedState(true), updateCurrScore()) : resetGame();
   }
 
   return (

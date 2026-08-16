@@ -7,7 +7,7 @@ import { GameStats } from "./components/GameStats";
 const initialBoardState = {
   currentScore: 0,
   highestScore: 0,
-  resetGame: false,
+  resetGameId: crypto.randomUUID(),
 };
 
 function App() {
@@ -27,14 +27,18 @@ function App() {
     }
 
     setBoardState((prev) => {
-      return { ...prev, currentScore: 0 };
+      return { ...prev, currentScore: 0, resetGameId: crypto.randomUUID() };
     });
   }
 
   return (
     <>
       <GameStats boardState={boardState} />
-      <GameBoard updateCurrScore={currentScoreHnd} resetGame={resetGameHnd} />
+      <GameBoard
+        updateCurrScore={currentScoreHnd}
+        resetGame={resetGameHnd}
+        key={boardState.resetGameId}
+      />
     </>
   );
 }
