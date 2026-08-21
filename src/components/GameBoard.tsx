@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { type GifResult, GiphyFetch } from "@giphy/js-fetch-api";
+import { useEffect, useState } from "react";
 
 import { CardPiece } from "./CardPiece";
 
@@ -7,23 +8,41 @@ interface GameBoardProp {
   resetGame: () => void;
 }
 
-let myArray = Array.from({ length: 10 }).map((_val, index) => {
-  return { val: index, id: `key${index}` };
-});
+const gf = new GiphyFetch(import.meta.env.VITE_GIPHY_KEY);
+const searchTerm = "Pokemon";
 
 function GameBoard(props: GameBoardProp) {
-  const [pics, setPics] = useState([...myArray]);
+  const [gifs, setGifs] = useState<GifResult["data"][]>([]);
 
   function handleShuffle() {
-    setPics((prev) => {
-      return [...shuffleArray(prev)];
-    });
+    setGifs((prev) => [...shuffleArray(prev)]);
   }
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const fetchData = async () => {
+      try {
+        const { data: gifs } = await gf.search(searchTerm, { limit: 10 });
+        if (isMounted) {
+          setGifs(gifs);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchData();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   return (
     <section className="gameBoard">
-      {pics.map((val) => (
-        <CardPiece {...props} key={val.id} val={val.val} shuffle={handleShuffle} />
+      {gifs.map((val) => (
+        <CardPiece {...props} key={val.id} val={val} shuffle={handleShuffle} />
       ))}
     </section>
   );

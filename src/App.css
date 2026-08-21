@@ -1,10 +1,74 @@
 .gameBoard {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
+  /* 1. Rigid Grid Layout: Keeps your board structure immaculate */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
 
   .cardPiece {
-    padding: 3rem;
-    border: 1px solid black;
+    /* 2. Glassmorphism Card Feel */
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 16px;
+    padding: 12px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+
+    /* Layout inside the card */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+
+    /* 3. Smooth Hover Mechanics */
+    transition:
+      transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+      box-shadow 0.25s ease,
+      border-color 0.25s ease;
+
+    &:hover {
+      transform: translateY(-8px) scale(1.03);
+      border-color: rgba(255, 215, 0, 0.6); /* Cyber yellow glow */
+      box-shadow: 0 12px 40px 0 rgba(255, 215, gold, 0.25);
+    }
+
+    &:active {
+      transform: translateY(-2px) scale(0.98);
+    }
+
+    /* 4. Aspect-Ratio Locked Image Box */
+    .image-container {
+      width: 100%;
+      aspect-ratio: 1 / 1; /* Forces square space */
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Prevents GIF distortion or stretching */
+        transition: transform 0.3s ease;
+      }
+    }
+
+    &:hover img {
+      transform: scale(1.08); /* Internal asset zoom on card hover */
+    }
+
+    /* Optional text wrapper if your cards have labels/names underneath */
+    .card-title {
+      margin-top: 0.75rem;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #ffffff;
+      text-transform: capitalize;
+      letter-spacing: 0.5px;
+    }
   }
 }
