@@ -8,7 +8,7 @@
   overflow-wrap: anywhere; /* Replaces legacy word-wrap & handles long URLs better */
 
   /* Modern Nesting syntax without ampersand duplication */
-  &:not(textarea, html) {
+  &:not(textarea) {
     scrollbar-gutter: stable both-edges;
   }
 }

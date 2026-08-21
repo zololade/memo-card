@@ -9,7 +9,7 @@ interface GameBoardProp {
 }
 
 const gf = new GiphyFetch(import.meta.env.VITE_GIPHY_KEY);
-const searchTerm = "Pokemon";
+const searchTerm = "call of duty";
 
 function GameBoard(props: GameBoardProp) {
   const [gifs, setGifs] = useState<GifResult["data"][]>([]);
@@ -23,7 +23,8 @@ function GameBoard(props: GameBoardProp) {
 
     const fetchData = async () => {
       try {
-        const { data: gifs } = await gf.search(searchTerm, { limit: 10 });
+        const randomOffset = Math.floor(Math.random() * 150);
+        const { data: gifs } = await gf.search(searchTerm, { limit: 10, offset: randomOffset });
         if (isMounted) {
           setGifs(gifs);
         }
